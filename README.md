@@ -8,7 +8,7 @@ Key dataset facts:
 - LLM-assisted validation with 95% human consensus agreement rate
 
 <p align="center">
-  <img src="Figures/ct_spatial_vqa_pipeline.png" width="92%" alt="CT-SpatialVQA pipeline"/>
+  <img src="Figures/ct_spatial_vqa_pipeline.jpg" width="92%" alt="CT-SpatialVQA pipeline"/>
 </p>
 
 ## What CT-SpatialVQA Tests
