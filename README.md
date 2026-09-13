@@ -31,9 +31,8 @@
 
 ### Key Findings
 
-| Human Consensus Rate | Best Model Accuracy | Avg. Accuracy (8 models) |
-|:--------------------:|:-------------------:|:------------------------:|
-| **95%** | **43.69%** (CT-Chat) | **34%** |
+- **Best Model Accuracy:** 43.69% (CT-Chat)
+- **Average Accuracy across 8 models:** 34%
 
 ---
 
