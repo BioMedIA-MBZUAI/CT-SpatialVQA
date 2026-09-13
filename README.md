@@ -10,7 +10,7 @@
   &nbsp;
   <a href="https://huggingface.co/datasets/Mashrafi2827/CT-SpatialVQA"><img src="https://img.shields.io/badge/🤗%20Dataset-CT--SpatialVQA-yellow?style=flat" alt="HuggingFace Dataset"/></a>
   &nbsp;
-  <a href="https://mashrafi27.github.io/CT-SpatialVQA-website/"><img src="https://img.shields.io/badge/🌐%20Website-CT--SpatialVQA-blue?style=flat" alt="Project Website"/></a>
+  <a href="https://mashrafi27.github.io/CT-SpatialVQA/"><img src="https://img.shields.io/badge/🌐%20Website-CT--SpatialVQA-blue?style=flat" alt="Project Website"/></a>
 </p>
 
 <p align="center">
@@ -22,8 +22,6 @@
 ## Overview
 
 **CT-SpatialVQA** is a clinically grounded benchmark for systematically evaluating **semantic-spatial reasoning** in 3D medical vision–language models (VLMs). Despite strong performance on VQA and report generation, we show that current 3D medical VLMs fail severely on spatially grounded questions — averaging **34% accuracy** across eight models, often below random.
-
-> **TL;DR:** 3D medical VLMs still rely on language priors rather than volumetric visual grounding. CT-SpatialVQA exposes this gap with 9,077 clinically grounded QA pairs requiring explicit spatial reasoning over CT volumes.
 
 ### Key Numbers
 
