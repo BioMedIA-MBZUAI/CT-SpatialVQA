@@ -107,13 +107,13 @@ CT-SpatialVQA/
 If you find CT-SpatialVQA useful in your research, please cite:
 
 ```bibtex
-@inproceedings{monon2026ctspatialvqa,
-  title     = {Lost in Volume: The CT-SpatialVQA Benchmark for Evaluating
-               Semantic-Spatial Understanding of 3D Medical Vision--Language Models},
-  author    = {Monon, Mashrafi and Rahman, Umaima and Hanif, Asif and
-               Saeed, Numan and Yaqub, Mohammad},
-  booktitle = {Medical Image Computing and Computer Assisted Intervention (MICCAI)},
-  year      = {2026}
+@article{monon2026ctspatialvqa,
+  title   = {Lost in Volume: The CT-SpatialVQA Benchmark for Evaluating
+             Semantic-Spatial Understanding of 3D Medical Vision--Language Models},
+  author  = {Monon, Mashrafi and Rahman, Umaima and Hanif, Asif and
+             Saeed, Numan and Yaqub, Mohammad},
+  journal = {arXiv preprint arXiv:2605.08787},
+  year    = {2026}
 }
 ```
 
