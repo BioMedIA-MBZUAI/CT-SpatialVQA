@@ -23,16 +23,17 @@
 
 **CT-SpatialVQA** is a clinically grounded benchmark for systematically evaluating **semantic-spatial reasoning** in 3D medical vision–language models (VLMs). Despite strong performance on VQA and report generation, we show that current 3D medical VLMs fail severely on spatially grounded questions — averaging **34% accuracy** across eight models, often below random.
 
-### Key Numbers
+### Dataset Scale
 
-| Stat | Value |
-|------|-------|
-| QA Pairs | **9,077** |
-| CT Volumes | **1,601** |
-| Spatial Categories | **6** |
-| VLMs Benchmarked | **8** |
-| Human Consensus Rate | **95%** |
-| Best Model Accuracy | **43.69%** (CT-Chat) |
+| QA Pairs | CT Volumes | Spatial Categories | VLMs Benchmarked |
+|:--------:|:----------:|:-----------------:|:----------------:|
+| **9,077** | **1,601** | **6** | **8** |
+
+### Key Findings
+
+| Human Consensus Rate | Best Model Accuracy | Avg. Accuracy (8 models) |
+|:--------------------:|:-------------------:|:------------------------:|
+| **95%** | **43.69%** (CT-Chat) | **34%** |
 
 ---
 
