@@ -1,58 +1,124 @@
-<h1 align="center">CT-SpatialVQA</h1>
-
-CT-SpatialVQA is a benchmark for evaluating **semantic-spatial reasoning** in 3D CT derived from CT-RATE radiology reports and volumes.
-
-Key dataset facts:
-- 1,601 radiology reports / CT volumes (CT-RATE test split)
-- 9,077 spatially grounded QA pairs
-- LLM-assisted validation with 95% human consensus agreement rate
+<h1 align="center">Lost in Volume: The CT-SpatialVQA Benchmark</h1>
 
 <p align="center">
-  <img src="Figures/ct_spatial_vqa_pipeline.jpg" width="92%" alt="CT-SpatialVQA pipeline"/>
+  <b>Evaluating Semantic-Spatial Understanding of 3D Medical Vision–Language Models</b><br>
+  <i>MICCAI 2026</i>
 </p>
 
-## What CT-SpatialVQA Tests
+<p align="center">
+  <a href="https://arxiv.org/abs/2605.08787"><img src="https://img.shields.io/badge/arXiv-2605.08787-b31b1b?style=flat&logo=arxiv" alt="arXiv"/></a>
+  &nbsp;
+  <a href="https://huggingface.co/datasets/Mashrafi2827/CT-SpatialVQA"><img src="https://img.shields.io/badge/🤗%20Dataset-CT--SpatialVQA-yellow?style=flat" alt="HuggingFace Dataset"/></a>
+  &nbsp;
+  <a href="https://mashrafi27.github.io/CT-SpatialVQA-website/"><img src="https://img.shields.io/badge/🌐%20Website-CT--SpatialVQA-blue?style=flat" alt="Project Website"/></a>
+</p>
 
-Questions are designed to require explicit spatial grounding, including:
-- anatomical localization
-- laterality awareness
-- relative position (3D)
-- adjacency vs. containment
-- spatial extent / boundaries
+<p align="center">
+  <img src="Figures/ct_spatial_vqa_pipeline.jpg" width="92%" alt="CT-SpatialVQA pipeline overview"/>
+</p>
 
-Spatial categories (as used in the paper):
-- Laterality & Bilateral Symmetry
-- Longitudinal (Vertical) Position
-- Anterior-Posterior (Depth) Relations
-- Medial-Lateral Orientation (Centricity)
-- Adjacency & Containment
-- Spatial Extent & Boundaries
+---
+
+## Overview
+
+**CT-SpatialVQA** is a clinically grounded benchmark for systematically evaluating **semantic-spatial reasoning** in 3D medical vision–language models (VLMs). Despite strong performance on VQA and report generation, we show that current 3D medical VLMs fail severely on spatially grounded questions — averaging **34% accuracy** across eight models, often below random.
+
+> **TL;DR:** 3D medical VLMs still rely on language priors rather than volumetric visual grounding. CT-SpatialVQA exposes this gap with 9,077 clinically grounded QA pairs requiring explicit spatial reasoning over CT volumes.
+
+### Key Numbers
+
+| Stat | Value |
+|------|-------|
+| QA Pairs | **9,077** |
+| CT Volumes | **1,601** |
+| Spatial Categories | **6** |
+| VLMs Benchmarked | **8** |
+| Human Consensus Rate | **95%** |
+| Best Model Accuracy | **43.69%** (CT-Chat) |
+
+---
+
+## Spatial Reasoning Categories
+
+CT-SpatialVQA covers six clinically relevant spatial primitives required for volumetric spatial integrity in medical VLMs:
+
+| # | Category | What it tests |
+|---|----------|--------------|
+| 1 | **Laterality & Bilateral Symmetry** | Left/right/bilateral anatomical grounding relative to the sagittal midline |
+| 2 | **Longitudinal (Vertical) Position** | Superior/inferior positioning along the cranio-caudal axis; slice-level consistency |
+| 3 | **Anterior-Posterior (Depth) Relations** | Front/back orientation; depth cues and compartment-level reasoning across slices |
+| 4 | **Medial-Lateral Orientation (Centricity)** | Central/peripheral localization within anatomical reference frames |
+| 5 | **Adjacency & Containment** | Topological relations: distinguishing touching from containment within anatomical boundaries |
+| 6 | **Spatial Extent & Boundaries** | Regional confinement, compartment crossing, disease spread accuracy |
+
+---
+
+## Results
+
+**Table 1.** Performance of 3D Medical VLMs on CT-SpatialVQA (zero-shot setting). All models fall below **50% accuracy**. Evaluation uses LLM-as-Jury (GPT-4o + Gemini 2.5 Flash + Qwen3 as independent binary judges), alongside standard text similarity metrics.
+
+| Metric | CT-Chat | MERLIN | Med3DVLM | M3D | RadFM | VILA-M3 | MedGemma | MedEvalKit | Avg. |
+|--------|:-------:|:------:|:--------:|:---:|:-----:|:-------:|:--------:|:----------:|:----:|
+| **LLM as Judge (Gemini)** | **44.68** | 29.85 | 34.55 | 33.04 | 33.36 | 29.49 | 39.30 | 39.96 | 35.53 |
+| **LLM as Judge (GPT)** | **41.50** | 29.45 | 31.82 | 31.09 | 31.40 | 28.43 | 40.55 | 39.44 | 34.21 |
+| **LLM as Judge (Qwen)** | **45.27** | 30.34 | 32.20 | 31.21 | 32.09 | 27.81 | 37.33 | 41.89 | 34.79 |
+| **LLM as Jury** | **43.69** | 28.85 | 31.44 | 30.57 | 31.49 | 28.20 | 38.24 | 40.16 | **34.08** |
+| SBERT Cosine Sim. | 0.562 | 0.503 | 0.399 | 0.412 | **0.585** | 0.471 | 0.581 | 0.579 | 0.512 |
+| BLEU | 3.29 | 8.11 | 0.56 | 1.08 | **16.45** | 2.51 | 3.07 | 3.46 | 4.82 |
+| ROUGE-L | 0.130 | 0.300 | 0.198 | 0.204 | **0.372** | 0.273 | 0.167 | 0.158 | 0.225 |
+| METEOR | 0.230 | 0.256 | 0.068 | 0.077 | **0.311** | 0.114 | 0.237 | 0.252 | 0.193 |
+
+---
 
 ## Dataset
 
-The dataset is provided in `dataset/`. It includes:
-- final filtered QA pairs (JSON)
-- generic JSONL exports with `case_id`, `image_path`, `question`, `answer`
+The dataset is publicly available on HuggingFace: [**Mashrafi2827/CT-SpatialVQA**](https://huggingface.co/datasets/Mashrafi2827/CT-SpatialVQA)
 
-JSONL schema:
+Local files are also provided in `dataset/`. JSONL schema:
+
 ```json
-{"case_id":"...","image_path":"...","question":"...","answer":"..."}
+{"case_id": "...", "image_path": "...", "question": "...", "answer": "..."}
 ```
 
-## CT Volumes
+**CT Volumes:** This repository distributes QA pairs only — not the CT volumes themselves. Use the CT-RATE download script in `dataset/` to retrieve the corresponding volumes.
 
-This repository distributes QA pairs and paths, but **not** the CT volumes themselves. A CT-RATE download script is included in `dataset/` (matching the provided JSONLs).
+```bash
+python dataset/download_ctrate_dataset.py
+```
 
-## Technical Details
+---
 
-Benchmarking and pipeline implementation details are documented in `benchmarking/` and `QA_generation/`.
+## Repository Structure
 
-## References
+```
+CT-SpatialVQA/
+├── dataset/                # QA pairs (JSON/JSONL) + CT-RATE download script
+├── QA_generation/          # LLM-based QA generation & validation pipeline
+├── benchmarking/           # Inference scripts and evaluation code
+│   ├── inference/          # Per-model inference pipelines
+│   └── eval_scripts/       # LLM-as-Judge / Jury evaluation
+└── Figures/                # Paper figures
+```
 
-This repository uses the CT-RATE dataset and benchmarks prior 3D medical VLMs.
+---
+
+## Citation
+
+If you find CT-SpatialVQA useful in your research, please cite:
+
+```bibtex
+@inproceedings{monon2026ctspatialvqa,
+  title     = {Lost in Volume: The CT-SpatialVQA Benchmark for Evaluating
+               Semantic-Spatial Understanding of 3D Medical Vision--Language Models},
+  author    = {Monon, Mashrafi and Rahman, Umaima and Hanif, Asif and
+               Saeed, Numan and Yaqub, Mohammad},
+  booktitle = {Medical Image Computing and Computer Assisted Intervention (MICCAI)},
+  year      = {2026}
+}
+```
 
 <details>
-<summary><b>BibTeX</b></summary>
+<summary><b>Referenced Works (BibTeX)</b></summary>
 
 ```bibtex
 @article{ct-rate,
@@ -88,7 +154,7 @@ This repository uses the CT-RATE dataset and benchmarks prior 3D medical VLMs.
 }
 
 @article{radfm,
-  title={Towards generalist foundation model for radiology by leveraging web-scale 2d\\&3d medical data},
+  title={Towards generalist foundation model for radiology by leveraging web-scale 2d\&3d medical data},
   author={Wu, Chaoyi and Zhang, Xiaoman and Zhang, Ya and Hui, Hui and Wang, Yanfeng and Xie, Weidi},
   journal={Nature Communications},
   volume={16},
